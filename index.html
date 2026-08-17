@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>朱意 · AI 产品经理作品集</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'PingFang SC','Microsoft YaHei',sans-serif;
+  background:#f4f6f8; color:#333; line-height:1.65;
+}
+.page { max-width:980px; margin:0 auto; padding:28px 18px 56px; }
+
+.hero {
+  background:#1a3a5c; color:white; border-radius:12px;
+  padding:28px 26px; margin-bottom:20px;
+}
+.hero h1 { font-size:24px; font-weight:700; margin-bottom:6px; }
+.hero .meta { font-size:13px; opacity:.9; }
+.hero .meta span { margin-right:14px; }
+.hero .desc { margin-top:12px; font-size:13px; opacity:.88; max-width:720px; }
+
+.nav {
+  display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px;
+}
+.nav a {
+  font-size:12px; color:#2a5080; text-decoration:none;
+  padding:5px 12px; background:white; border-radius:16px; border:1px solid #d5e0ec;
+}
+.nav a:hover { background:#eef4fc; }
+
+.section {
+  background:white; border-radius:12px; padding:22px 24px; margin-bottom:16px;
+  box-shadow:0 1px 8px rgba(0,0,0,.04);
+}
+.section h2 {
+  font-size:17px; color:#1a3a5c; margin-bottom:12px;
+  padding-bottom:8px; border-bottom:1px solid #eef2f6;
+}
+.section h3 { font-size:14px; color:#2a5080; margin:16px 0 8px; }
+.section p, .section li { font-size:13px; color:#444; }
+.section ul, .section ol { margin:6px 0 6px 18px; }
+.section li { margin-bottom:5px; }
+
+.metrics {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:14px 0;
+}
+.metric {
+  text-align:center; padding:12px 8px; border-radius:8px;
+  background:#f7f9fb; border:1px solid #e8edf3;
+}
+.metric .val { font-size:20px; font-weight:700; color:#1a3a5c; }
+.metric .val.green { color:#2a7a4a; }
+.metric .lbl { font-size:11px; color:#888; margin-top:3px; }
+
+.figure {
+  margin:14px 0; border-radius:10px; overflow:hidden;
+  border:1px solid #e0e8f0; background:#fafbfd;
+}
+.figure iframe {
+  width:100%; border:0; display:block; background:#f5f0e8;
+}
+.figure .caption {
+  padding:8px 12px; font-size:11px; color:#666;
+  background:#f5f8fa; border-top:1px solid #e8edf3;
+}
+
+.note {
+  margin:12px 0; padding:10px 14px; border-radius:8px;
+  background:#f7f9fb; border-left:3px solid #4a90d9;
+  font-size:12.5px; color:#333;
+}
+.note.warn {
+  background:#fff8f0; border-left-color:#e8a838;
+}
+
+.table-wrap { overflow-x:auto; margin:12px 0; border-radius:8px; border:1px solid #e8edf3; }
+table { width:100%; border-collapse:collapse; font-size:12px; }
+thead { background:#f5f8fa; }
+th { padding:9px 11px; text-align:left; font-weight:700; color:#1a3a5c; border-bottom:1px solid #e0e8f0; }
+td { padding:8px 11px; border-bottom:1px solid #f0f2f5; color:#444; vertical-align:top; }
+tr:last-child td { border-bottom:none; }
+
+.chain {
+  display:flex; flex-wrap:wrap; gap:6px; align-items:center;
+  margin:12px 0; padding:10px 12px; background:#f0f6fc; border-radius:8px;
+}
+.chain span {
+  background:white; padding:5px 10px; border-radius:5px; border:1px solid #c8daf0;
+  font-size:12px; font-weight:600; color:#1a3a5c;
+}
+.chain .arr { color:#4a90d9; border:none; background:none; padding:0 2px; }
+
+.job {
+  margin-top:10px; padding:10px 12px; background:#fafbfd; border:1px solid #e8edf3;
+  border-radius:8px; font-size:12.5px;
+}
+.job b { color:#1a3a5c; }
+
+.footer {
+  text-align:center; font-size:11px; color:#999; margin-top:8px; line-height:1.7;
+}
+
+@media (max-width:720px) {
+  .metrics { grid-template-columns:1fr 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <h1>信息流低质内容治理 Loop</h1>
+    <div class="meta">
+      <span>朱意</span>
+      <span>AI 产品经理</span>
+      <span>xxxx.xx – xxxx.xx</span>
+    </div>
+    <p class="desc">实习期间负责推荐全流程自迭代 Loop 的体验治理分支，从 0 到 1 搭建首页信息流 Top 低质内容治理链路，推动多 Agent 从 L2 人机协同向 L3 自主决策演进。目标将 Top 内容 badcase 率从 10% 降至 2%，多轮迭代后降至 1.5%。</p>
+  </header>
+
+  <nav class="nav">
+    <a href="#bg">背景与目标</a>
+    <a href="#evolution">L2 → L3</a>
+    <a href="#arch">整体架构</a>
+    <a href="#decision">关键决策</a>
+    <a href="#delivery">落地与结果</a>
+    <a href="#role">我做了什么</a>
+  </nav>
+
+  <!-- 背景 -->
+  <section class="section" id="bg">
+    <h2>一、背景与目标</h2>
+    <p>当时治理处在 L2：品鉴、观澜、清流等 Agent 各自独立，误判筛查、策略配置、实验设计、上线部署大量依赖人工，闭环成本高、效率低。项目组成立 4 人小团队推进自动化，去掉繁杂流程，把发现到上线的链路串起来。</p>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="val">10%</div>
+        <div class="lbl">治理前 Top badcase 率</div>
+      </div>
+      <div class="metric">
+        <div class="val green">1.5%</div>
+        <div class="lbl">多轮 Loop 后</div>
+      </div>
+      <div class="metric">
+        <div class="val">2%</div>
+        <div class="lbl">项目目标</div>
+      </div>
+      <div class="metric">
+        <div class="val">4 人</div>
+        <div class="lbl">项目推进小组</div>
+      </div>
+    </div>
+
+    <p>链路目标：高曝光低质内容从发现 → 召回 → 归因 → 策略 → 镜像验证 → 实验 → 发布，形成可追踪闭环；人工只卡在阈值确认、策略方案审核、进实验确认、边界 case 决策等节点。</p>
+  </section>
+
+  <!-- L2 L3 -->
+  <section class="section" id="evolution">
+    <h2>二、L2 → L3 治理体系演化</h2>
+    <p>L2 是「教 AI 做事」：7 步人机协同，实验全程人工建号、配流量、看数据、决定推全。L3 目标是「让 AI 自己做」：压缩为 6 步，检测、归因、镜像 QA、AB 建实验、推全/回滚尽量自动化，策略 proposal 仍由人工审核。</p>
+
+    <figure class="figure">
+      <iframe src="assets/loop-l2-l3.html" height="920" title="信息流治理体系演化 L2→L3" loading="lazy"></iframe>
+      <div class="caption">图 1　信息流治理体系演化（项目汇报原图）</div>
+    </figure>
+  </section>
+
+  <!-- 整体架构 -->
+  <section class="section" id="arch">
+    <h2>三、整体架构与 Agent 链路</h2>
+    <p>按简历落地口径，L3 Multi-Agent 编排为：</p>
+    <div class="chain">
+      <span>品鉴（发现）</span><span class="arr">→</span>
+      <span>回响（Embedding 召回）</span><span class="arr">→</span>
+      <span>观澜（归因分流）</span><span class="arr">→</span>
+      <span>定澜（策略 / AB）</span><span class="arr">→</span>
+      <span>云河（镜像 QA 上线）</span>
+    </div>
+
+    <p style="margin-top:10px;">对外汇报里的五步主链路（问题发现 → 相似召回 → 策略校验 → 策略配置 → 上线发布）与上面对应，核心约束是：<strong>镜像不过，不进实验</strong>。</p>
+
+    <figure class="figure">
+      <iframe src="assets/loop-architecture.html" height="780" title="信息流 AI 治理闭环架构" loading="lazy"
+        style="background:linear-gradient(180deg,#e8f4fc,#f5f8fa);"></iframe>
+      <div class="caption">图 2　信息流 AI 治理闭环（整体架构原图）</div>
+    </figure>
+
+    <h3>各环节职责（摘自项目文档）</h3>
+    <ul>
+      <li><strong>问题发现 / 品鉴：</strong>高曝光巡检；标签状态前置（已有标签 / 库有未打 / 无标签）；输出标签 + weighttype；双大模型交叉验证。</li>
+      <li><strong>相似召回 / 回响：</strong>无标签或库有未打时触发；向量召回相似内容；多档阈值分段抽检，推荐阈值后需人工确认；达标后打 weighttype。</li>
+      <li><strong>策略校验 / 观澜·定澜：</strong>weighttype 查 tag 映射，复用存量线上策略或新建方案；输出处置结论 + 策略方案（手段、参数、实验设计）。</li>
+      <li><strong>策略配置 / 云河：</strong>配置落地 → 镜像功能验证 → 人工确认后调实验接口建实验。</li>
+      <li><strong>上线发布：</strong>观察 ≥3 天；达标扩量推全；不达标分型路由；记录 case 状态。</li>
+    </ul>
+
+    <div class="note">
+      人工卡点固定在：阈值确认 · 策略方案审核 · 进实验确认 · 边界 case 决策。
+    </div>
+  </section>
+
+  <!-- 关键决策 -->
+  <section class="section" id="decision">
+    <h2>四、关键产品决策：无标签 badcase 怎么治</h2>
+    <p>传统路径是对 badcase 打标再配策略。打标依赖内容理解团队，周期长、人工成本高，撑不起 Loop 自迭代。项目里对<strong>无标签</strong>问题改走 Embedding 相似召回，输出规则–weight–标签映射，用 weighttype 降权覆盖。</p>
+
+    <div class="note warn">
+      典型 case：机票类营销笔记（封面/标题强营销感），线上无对应三级标签，无法直接配策略。探查用 9 条 seed 做文本 embedding 召回。
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>治理口径</th><th>阈值 ≥0.82</th><th>阈值 ≥0.84</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>宽口径</strong>（封面+标题营销感）</td>
+            <td>94 条候选，准确率 85.1%</td>
+            <td>30 条，准确率 100%</td>
+          </tr>
+          <tr>
+            <td><strong>窄口径</strong>（正文也为站内营销）</td>
+            <td>准确率 49.5%，不能直接用</td>
+            <td>样本过少，不推荐</td>
+          </tr>
+          <tr>
+            <td><strong>主要误伤</strong></td>
+            <td colspan="2">标题像营销、正文实际是攻略/资讯（「宽是窄否」）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>当时拍板的取舍</h3>
+    <ul>
+      <li>不做「等内容理解建标签 + 逐条打标」——周期以周计，跟不上 loop。</li>
+      <li>改用 embedding 召回 + 打 weighttype，再查映射复用存量策略，把周期压到天级。</li>
+      <li>阈值不能全自动：分段抽检只能估准确率，误伤清不掉，最终阈值必须人工确认。</li>
+      <li>口径先定：宽/窄口径不定，阈值没有意义；一期先按宽口径降权。</li>
+    </ul>
+
+    <p style="margin-top:10px;">回响 Agent 在 Dify 上从 0 到 1 搭工作流：seed → 向量召回 → 多档阈值评测 → 打 weighttype；并协同研发打通各 Agent 之间的链路，记录 case 与 loop 中间过程，反哺后续迭代。</p>
+  </section>
+
+  <!-- 落地与结果 -->
+  <section class="section" id="delivery">
+    <h2>五、落地节奏与结果</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>阶段</th><th>目标</th><th>关键交付</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>xx/xx MVP</td>
+            <td>主链路设计 + 1 条端到端演示</td>
+            <td>站内营销 case：发现 → 相似召回 → 观澜分流 → 策略方案（含阈值人工确认）</td>
+          </tr>
+          <tr>
+            <td>xx/xx</td>
+            <td>云河接入完整 Loop</td>
+            <td>镜像 QA → AB 小流量 → 推全/回滚；weighttype 映射表上线</td>
+          </tr>
+          <tr>
+            <td>效果验证</td>
+            <td>badcase 率下降</td>
+            <td>目标 10%→2%；实际多轮 loop 后 Top 内容 badcase 率降至 1.5%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>验证原则（项目内约定）</h3>
+    <ul>
+      <li>镜像 QA：进实验前的配置与功能检查；镜像不过，绝不进 AB。</li>
+      <li>AB 实验：小流量效果验证；不达标不等于失败，先分型再路由（调参、回归因、延长观察、回滚、人工）。</li>
+      <li>Case / Loop 台账：记录每个 case 生命周期与每轮漏斗（发现量 / 处理量 / 失败量 / 卡点），用于定位失败原因。</li>
+    </ul>
+
+    <figure class="figure">
+      <iframe src="assets/loop-doc.html" height="640" title="信息流治理 Loop 项目文档" loading="lazy"
+        style="background:#f0f4f8;"></iframe>
+      <div class="caption">图 3　项目汇报文档（收益、能力排期、相似召回 case 与卡点）</div>
+    </figure>
+  </section>
+
+  <!-- 我做了什么 -->
+  <section class="section" id="role">
+    <h2>六、我在项目里具体做了什么</h2>
+    <p>岗位：AI 产品经理（信息流策略）。主要负责体验治理分支的方案与推进。</p>
+
+    <div class="job">
+      <b>方案设计</b><br>
+      参与 L2→L3 演化路径与 Multi-Agent 编排设计（品鉴 → 回响 → 观澜 → 定澜 → 云河）；明确人工卡点与「镜像不过不进 AB」；整理 Case / Loop 过程记录要求。
+    </div>
+    <div class="job">
+      <b>关键决策</b><br>
+      针对无标签 badcase，推动 Embedding 相似召回 + weighttype 降权，替代长周期打标路径；参与宽/窄口径与阈值人工确认规则的落地。
+    </div>
+    <div class="job">
+      <b>原型与协作</b><br>
+      在 Dify 0-1 搭建回响工作流；协同研发打通 Agent 链路与 Embedding 部署相关事项；跟进实验与上线节奏；持续发现 Top 内容 badcase，按问题严重性推动重排/降权策略。
+    </div>
+    <div class="job">
+      <b>结果</b><br>
+      多轮 loop 后，首页信息流 Top 内容 badcase 率从约 10% 降至 1.5%（目标 2%）。
+    </div>
+  </section>
+
+  <div class="footer">
+    朱意 · AI 产品经理作品集 · 脱敏版<br>
+    材料来源：项目 Loop 图 / 整体架构图 / 项目汇报文档 · 口径与简历一致
+  </div>
+
+</div>
+</body>
+</html>

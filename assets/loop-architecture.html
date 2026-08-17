@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>信息流 AI 治理闭环</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family:'PingFang SC','Microsoft YaHei',sans-serif;
+  background:linear-gradient(180deg,#e8f4fc 0%,#f5f8fa 40%,#eef6f0 100%);
+  padding:28px 24px 40px;
+  min-width:0;
+  width:100%;
+}
+h1 { text-align:center; font-size:22px; color:#1a3a5c; margin-bottom:4px; }
+.sub { text-align:center; font-size:12px; color:#6a8aaa; margin-bottom:22px; }
+
+/* 底线识别 */
+.baseline {
+  background:linear-gradient(90deg,#2a5080,#3a6898);
+  color:white; border-radius:10px; padding:12px 18px; margin-bottom:18px;
+  display:flex; align-items:flex-start; gap:14px; box-shadow:0 3px 12px rgba(42,80,128,.25);
+}
+.baseline .icon { font-size:26px; flex-shrink:0; margin-top:2px; }
+.baseline-main { flex:1; min-width:0; }
+.baseline h3 { font-size:14px; margin-bottom:4px; }
+.baseline .intro { font-size:10.5px; opacity:.92; line-height:1.55; margin-bottom:6px; }
+.baseline .std-summary { font-size:10px; opacity:.85; line-height:1.6; }
+
+/* 5 steps row */
+.steps-row { display:flex; gap:0; align-items:stretch; margin-bottom:20px; position:relative; }
+.step-card {
+  flex:1; background:white; border-radius:12px; padding:14px 12px 12px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08); position:relative;
+  border-top:4px solid; min-height:340px;
+}
+.step-card:nth-child(1) { border-color:#4a90d9; }
+.step-card:nth-child(3) { border-color:#5bb5a8; }
+.step-card:nth-child(5) { border-color:#7bc67e; }
+.step-card:nth-child(7) { border-color:#e8a838; }
+.step-card:nth-child(9) { border-color:#b07cc6; }
+.step-arrow {
+  display:flex; align-items:center; justify-content:center; width:28px; flex-shrink:0;
+  color:#8ab; font-size:20px; font-weight:700; padding-top:40px;
+}
+.step-num {
+  position:absolute; top:-12px; left:12px; width:24px; height:24px; border-radius:50%;
+  color:white; font-size:11px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+.step-card:nth-child(1) .step-num { background:#4a90d9; }
+.step-card:nth-child(3) .step-num { background:#5bb5a8; }
+.step-card:nth-child(5) .step-num { background:#7bc67e; }
+.step-card:nth-child(7) .step-num { background:#e8a838; }
+.step-card:nth-child(9) .step-num { background:#b07cc6; }
+.step-icon { font-size:32px; text-align:center; margin:8px 0 6px; }
+.step-title { text-align:center; font-size:13px; font-weight:700; color:#1a3a5c; margin-bottom:10px; }
+.step-body { font-size:10.5px; color:#444; line-height:1.65; }
+.step-body li { margin-left:14px; margin-bottom:3px; }
+.step-output {
+  margin-top:10px; background:#f5f8fa; border-radius:6px; padding:6px 8px;
+  font-size:10px; color:#2a6a4a; border-left:3px solid #7bc67e;
+}
+.step-output strong { color:#1a3a5c; }
+.step-human {
+  margin-top:8px; text-align:center;
+}
+.step-human span {
+  display:inline-block; background:#fff3e0; border:1px dashed #e8a838; border-radius:4px;
+  padding:3px 10px; font-size:10px; color:#b07010; font-weight:600;
+}
+
+/* bottom：闭环全宽在上，效果/学习并排在下 */
+.bottom-section {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+  align-items:stretch;
+}
+.loop-box {
+  grid-column:1 / -1;
+  background:linear-gradient(135deg,#2a6a8a,#3a8aaa); color:white;
+  border-radius:12px; padding:18px 20px; box-shadow:0 3px 12px rgba(42,106,138,.2);
+  min-width:0;
+}
+.loop-box h3 { font-size:16px; margin-bottom:14px; text-align:center; font-weight:700; }
+.loop-cycle {
+  display:flex; align-items:center; justify-content:center;
+  gap:10px; flex-wrap:nowrap;
+}
+.loop-node {
+  background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.25);
+  border-radius:10px; padding:12px 14px; text-align:center;
+  font-size:13px; font-weight:600; line-height:1.45;
+  flex:1; min-width:0;
+}
+.loop-node-sub { display:block; margin-top:5px; opacity:.88; font-size:11px; font-weight:400; line-height:1.45; }
+.loop-arrow { font-size:18px; opacity:.75; flex-shrink:0; }
+.effects-box {
+  background:white; border-radius:12px; padding:14px 16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06); border-left:4px solid #7bc67e;
+}
+.effects-box h3 { font-size:13px; color:#1a3a5c; margin-bottom:8px; }
+.effects-box li { font-size:10.5px; color:#555; margin-left:14px; line-height:1.7; }
+.learn-box {
+  background:white; border-radius:12px; padding:14px 16px;
+  box-shadow:0 2px 10px rgba(0,0,0,.06); border-left:4px solid #b07cc6;
+}
+.learn-box h3 { font-size:13px; color:#1a3a5c; margin-bottom:8px; }
+.learn-box li { font-size:10.5px; color:#555; margin-left:14px; line-height:1.7; }
+
+.foot { text-align:center; margin-top:18px; font-size:10px; color:#aaa; line-height:1.8; }
+.foot a { color:#2a6a8a; text-decoration:none; border-bottom:1px solid rgba(42,106,138,.3); }
+.foot a:hover { color:#1a5080; border-bottom-color:#1a5080; }
+.foot-docs { margin-top:6px; font-size:10px; color:#999; }
+.foot-docs a { color:#4a7a9a; margin:0 4px; }
+
+</style>
+</head>
+<body>
+
+<h1>信息流 AI 治理闭环</h1>
+<div class="sub">高曝光低质内容 · 发现 → 召回 → 校验 → 配置 → 发布 · 人工智能 × 人工协同</div>
+
+<!-- 问题发现 Agent · 底线识别 -->
+<div class="baseline">
+  <div class="icon">🛡️</div>
+  <div class="baseline-main">
+    <h3>问题发现 Agent · 底线识别</h3>
+    <p class="intro">自研「信息流内容底线治理标准」，按 MECE 原则划分六大类，作为大模型的学习依据；大模型基于标准输出是否违规、违规类型、详情与严重程度，命中即进入 Loop 流程。</p>
+    <p class="std-summary">六大类：<b>违法与重大安全</b>· <b>公序良俗与价值观</b>· <b>引人不适与色情低俗</b>· <b>内容质量与信息有效性</b>· <b>旅行相关性</b>· <b>营销导流与交易合规</b></p>
+  </div>
+</div>
+
+<!-- 5 步主链路 -->
+<div class="steps-row">
+
+  <div class="step-card">
+    <div class="step-num">1</div>
+    <div class="step-icon">🔍</div>
+    <div class="step-title">问题发现 Agent</div>
+    <ul class="step-body">
+      <li>高曝光内容自动巡检，识别低质内容</li>
+      <li>标签状态前置判断：已有标签 / 库有未打标 / 无标签</li>
+      <li>按底线标准类型输出 <b>标签</b> + <b>weighttype 标识</b>（保留原标签字段）</li>
+      <li>weight 与三级标签 1:N 映射：一个 weight 可对应多个存量标签</li>
+      <li>双大模型交叉验证，聚类定级、影响面排序</li>
+    </ul>
+    <div class="step-output"><strong>输出 →</strong> 标签 + weighttype + 标签状态 + 问题类型</div>
+  </div>
+
+  <div class="step-arrow">→</div>
+
+  <div class="step-card">
+    <div class="step-num">2</div>
+    <div class="step-icon">🔗</div>
+    <div class="step-title">相似召回 Agent</div>
+    <ul class="step-body">
+      <li>库有未打标 / 无标签时触发</li>
+      <li>向量接口召回语义相似内容集</li>
+      <li><b>大模型自动化调阈值：</b>多档位分段抽检，取误伤相对较小的阈值回捞</li>
+      <li>无法全量测准确率（召回量过大），阈值必有误伤 → <b>需人工确认</b></li>
+      <li>达标后打上 weighttype，与标签做映射</li>
+    </ul>
+    <div class="step-output"><strong>输出 →</strong> 召回内容集 + weighttype + 推荐阈值（待人工确认）</div>
+    <div class="step-human"><span>👤 人工确认阈值</span></div>
+  </div>
+
+  <div class="step-arrow">→</div>
+
+  <div class="step-card">
+    <div class="step-num">3</div>
+    <div class="step-icon">✅</div>
+    <div class="step-title">策略校验 Agent</div>
+    <ul class="step-body">
+      <li>承接问题发现 / 相似召回分流后的 case</li>
+      <li>输入：标签 + weighttype + 标签状态 + 召回内容集</li>
+      <li>通过 weighttype → 查 tag 映射 → <b>复用对应标签的线上策略</b></li>
+      <li>有 tag 仍曝光 → 修配置 / 调参；无现成策略 → 新建策略方案</li>
+      <li>生成策略方案（治理手段 + 参数 + 实验设计）</li>
+    </ul>
+    <div class="step-output"><strong>输出 →</strong> 处置结论 + 策略方案</div>
+    <div class="step-human"><span>👤 人工确认治理方案</span></div>
+  </div>
+
+  <div class="step-arrow">→</div>
+
+  <div class="step-card">
+    <div class="step-num">4</div>
+    <div class="step-icon">⚙️</div>
+    <div class="step-title">策略配置 Agent</div>
+    <ul class="step-body">
+      <li>策略方案 → 策略平台配置生成与落地</li>
+      <li><strong>上线前自检：</strong>推镜像环境 + 功能验证</li>
+      <li>校验配置无缺陷、策略基本生效</li>
+      <li><strong>实验分组：</strong>调用实验接口建实验、定起始流量</li>
+    </ul>
+    <div class="step-output"><strong>输出 →</strong> 策略配置编号 + 实验编号</div>
+    <div class="step-human"><span>👤 人工确认进入实验</span></div>
+  </div>
+
+  <div class="step-arrow">→</div>
+
+  <div class="step-card">
+    <div class="step-num">5</div>
+    <div class="step-icon">🚀</div>
+    <div class="step-title">上线发布 Agent</div>
+    <ul class="step-body">
+      <li>实验观察期 ≥3 天，实验版定向抽验</li>
+      <li>指标监控：badcase占比</li>
+      <li>达标 → 按扩量计划自动推全</li>
+      <li>不达标 → 分型路由（调参 / 回滚 / 人工 / 延长观察）</li>
+      <li>记录case状态：成功 / 失败 / 人工干预</li>
+    </ul>
+    <div class="step-output"><strong>输出 →</strong> 推全或回滚 + badcase处理</div>
+    <div class="step-human"><span>👤 人工决策边界badcase</span></div>
+  </div>
+
+</div>
+
+<!-- 底部闭环 -->
+<div class="bottom-section">
+
+  <div class="loop-box">
+    <h3>AI × 人工协同闭环</h3>
+    <div class="loop-cycle">
+      <div class="loop-node">① 智能产出<span class="loop-node-sub">case集 / 策略方案 / 配置 / 实验</span></div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node">② 人工确认<span class="loop-node-sub">策略方案 + 实验上线</span></div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node">③ 结果反馈<span class="loop-node-sub">实验数据 / badcase占比</span></div>
+      <div class="loop-arrow">→</div>
+      <div class="loop-node">④ 策略优化<span class="loop-node-sub">调参 / 回滚 / 模型迭代</span></div>
+      <div class="loop-arrow">↩</div>
+    </div>
+  </div>
+
+  <div class="effects-box">
+    <h3>📈 最终效果</h3>
+    <ul>
+      <li>低质内容发现更及时</li>
+      <li>治理链路自动化</li>
+      <li>策略上线更安全（镜像先验）</li>
+      <li>实验推全更高效</li>
+      <li>case全生命周期可追踪</li>
+    </ul>
+  </div>
+
+  <div class="learn-box">
+    <h3>📚 负反馈学习</h3>
+    <ul>
+      <li>case + loop双维度记录</li>
+      <li>精准定位失败原因</li>
+      <li>反哺检测模型与召回模型</li>
+      <li>可追溯历史环节与决策</li>
+      <li>卡点量级分布驱动优化模型</li>
+    </ul>
+  </div>
+
+</div>
+
+<div class="foot">
+  <strong>关键顺序</strong>：问题发现 Agent → 相似召回 Agent（无标签路径）→ 策略校验 Agent 出方案 → 策略配置 Agent（镜像验证 → 实验分组）→ 上线发布 Agent（推全/回滚）<br>
+  <strong>人工卡点</strong>：阈值确认 · 策略方案审核 · 进实验确认 · 边界案例决策 &nbsp;|&nbsp;
+  <strong>镜像不过不进实验</strong><br>
+  <div class="foot-docs">
+    信息流治理 loop ·
+    信息流治理自动化落地
+  </div>
+</div>
+
+</body>
+</html>
